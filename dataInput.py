@@ -7,7 +7,7 @@ if __name__ == "__main__":
     # uuid of each document and the number of documents in that file
     # Just replace validationFinal with the file you want to read
     #
-    trainingFile = open("Data/validationFinal.jsonl", "r")
+    trainingFile = open("Data/trainFinal.jsonl", "r")
     trainingData = json.loads(trainingFile.read())
     trainingFile.close()
 
