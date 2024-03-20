@@ -1,27 +1,21 @@
 import json
+import string
 
 if __name__ == "__main__":
-  
-    trainFile = open("Data/trainRemoved.txt", "r", encoding="utf16")
-    trainLines = trainFile.readlines()
-    trainFile.close()
-    
-    outputFile = open("Data/trainNew.txt", "w")
 
-    outputFile.write("[\n")
-    for i in range(len(trainLines) - 1):
-        outputFile.write(trainLines[i] + ",")
-    outputFile.write(trainLines[len(trainLines) - 1])
-    outputFile.write("]")
+    #
+    # This section below reads the <train/validation/test>Final.jsonl file and returns the
+    # uuid of each document and the number of documents in that file
+    # Just replace validationFinal with the file you want to read
+    #
+    trainingFile = open("Data/validationFinal.jsonl", "r")
+    trainingData = json.loads(trainingFile.read())
+    trainingFile.close()
 
-    outputFile.close()
+    count = 0
 
-    #trainingFile = open("Data/train.jsonl", "r")
-    #trainingData = json.loads(trainingFile.read())
-    #trainingFile.close()
+    for i in range(len(trainingData)):
+        print(trainingData[i]["uuid"])
+        count += 1
 
-    #print(trainingData)
-    #print(len(trainingData))
-
-    #for i in range(len(trainingData)):
-    #    print(trainingData[i]["uuid"])
+    print(count)
