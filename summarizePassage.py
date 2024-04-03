@@ -1,6 +1,7 @@
 import spacy
 from spacy.lang.en.stop_words import STOP_WORDS
 from string import punctuation
+from heapq import nlargest
 
 # text = """
 #     Maria Sharapova has basically no friends as tennis players on the WTA Tour. The Russian player has no problems in openly speaking about it and in a recent interview she said: 'I don't really hide any feelings too much.
@@ -15,12 +16,20 @@ from string import punctuation
 # """
 
 targetParagraphs = [
-    "Looks like we've been dieting our entire lives...",
-    "According to Story reporter, Julian Lee.",
-    "Today marks the first day of a pie- and beer-only diet.",
-    "The idea of the experiment is to prove there's no special trick to dieting and all that matters is putting in less energy to your body than you use during the day and you will lose weight.",
-    "For breakfast, lunch and dinner I'll be eating pies only and, on a Friday, I can exchange one pie for three beers, which has a similar amount of calories.",
-    "Women need less calories than men, who need 2500 calories a day. The pie and beer diet is only 1600 calories a day - two-thirds of what a man needs, which means there will be weight loss.",
+    "The hole in the space station is superficial but a little unsettling for Earthbound folk.",
+    "When you sit around imagining life aboard the International Space Station (we all do that, right?) one thing you probably don't want to think about is space junk slamming into your vessel. And you almost certainly don't want to imagine a piece of that junk taking a chunk of your spacecraft's window with it.",
+    "Especially not when the chipped window in question is the one that provides some of the best views of Earth.",
+    "[NASA reminds us that astronaut poop burns up 'like shooting stars']",
+    "But that's exactly what happened last month in the space station's Cupola, a European-built 2010 addition that you're sure to recognize - it's where those great pictures and videos showing stunning shots of our planet are taken.",
+    '"I am often asked if the International Space Station is hit by space debris," British astronaut Tim Peake, who took the freaky photo of the damaged window, said in a statement. "Yes - this is the chip in one of our Cupola windows, glad it is quadruple glazed!"',
+    "Um, yeah. You can say that again.",
+    "NASA released an animation depicting space trash in motion around Earth. (YouTube/NASA)",
+    "The astronauts, of course, are perfectly safe - they generally don't tweet photos during life-threatening station crises. And the views are safe, too - the chip is less than a centimeter across. According to the European Space Agency, the damage was likely caused by something as unassuming as a flake of paint or a metal fragment just a few thousandths of a millimeter across.",
+    "A FLAKE OF PAINT. Let that sink in.",
+    "Because of the incredibly high speeds of these orbiting pieces of debris, something 1 centimeter across could disable critical instruments on the space station, and anything larger could penetrate the sturdy shields that protect crew modules. Debris 10 centimeters across could shatter the spacecraft into pieces. In 2013, experts estimated that there were at least 29,000 objects of this size orbiting Earth.",
+    'The danger posed by errant space debris were dramatized in the 2013 film "Gravity," in which astronauts on a shuttle mission are terrorized by speeding chunks of space junk.',
+    "Space junk is definitely a real concern. Mashable reports that NASA tracks more than 500,000 pieces of defunct satellites and old rocket bits orbiting Earth, some no larger than marbles, so that the space station can be maneuvered away from close encounters - but many small pieces, like the one that hit the space station, are too difficult to keep track of.",
+    "These days space agencies try to be more mindful of the waste left behind by missions, but no one has found an ideal solution for cleaning up the junk that's already there.",
 ]
 
 text = ""
@@ -69,9 +78,8 @@ for sent in sentence_tokens:
                 sentence_scores[sent] += word_frequencies[word.text.lower()]
 # print(sentence_scores)
 
-from heapq import nlargest
-
-select_length = int(len(sentence_tokens) * 0.3)
+# select_length = int(len(sentence_tokens) * 0.3)
+select_length = 2
 # print(select_length)
 
 summary = nlargest(select_length, sentence_scores, key=sentence_scores.get)
@@ -82,3 +90,4 @@ summary = " ".join(final_summary)
 # print(text)
 
 print(summary)
+print(type(summary))
