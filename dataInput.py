@@ -92,6 +92,8 @@ if __name__ == "__main__":
     trainingData = json.loads(trainingFile.read())
     trainingFile.close()
 
+    stopwords = list(STOP_WORDS)
+
     # Initialize counts
     count = 0
     countCorrect = 0
@@ -120,8 +122,20 @@ if __name__ == "__main__":
             summary = summarizePassage(text)
             checkKey = 0
             if trainingData[i]["targetKeywords"] == None:
-                summary = summarizePassage(text)
-                if trainingData[i]["spoiler"][0] in summary:
+                givenSummary = (
+                    trainingData[i]["spoiler"][0].strip(".").strip(",").split(" ")
+                )
+                for j in givenSummary:
+                    if j not in stopwords:
+                        if j in summary:
+                            checkKey += 1
+                if (
+                    checkKey
+                    / len(
+                        trainingData[i]["spoiler"][0].strip(".").strip(",").split(" ")
+                    )
+                    >= 0.5
+                ):
                     countCorrect += 1
                 else:
                     countWrong += 1
