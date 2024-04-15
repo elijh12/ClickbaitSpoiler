@@ -104,7 +104,8 @@ if __name__ == "__main__":
     # countPassageCounting = 0
 
     # Process each document in the selected corpus
-    for i in range(len(trainingData)):
+    # for i in range(len(trainingData)):
+    for i in range(20):
         count += 1
         print("count: ", count)
         # thingToCheck = trainingData[i]["postText"][0].lower()
@@ -117,13 +118,41 @@ if __name__ == "__main__":
             #     j.replace('"', "'")
             # # print(text)
             summary = summarizePassage(text)
-            if trainingData[i]["spoiler"][0] in summary:
-                countCorrect += 1
+            checkKey = 0
+            if trainingData[i]["targetKeywords"] == None:
+                summary = summarizePassage(text)
+                if trainingData[i]["spoiler"][0] in summary:
+                    countCorrect += 1
+                else:
+                    countWrong += 1
+                    print(summary)
+                    print(trainingData[i]["spoiler"][0])
+                    # break
             else:
-                countWrong += 1
-                print(summary)
-                print(trainingData[i]["spoiler"][0])
-                break
+                print(
+                    trainingData[i]["targetKeywords"].strip(" ").strip(".").split(",")
+                )
+                for j in (
+                    trainingData[i]["targetKeywords"].strip(" ").strip(".").split(",")
+                ):
+                    if j in summary:
+                        checkKey += 1
+                if (
+                    checkKey
+                    / len(
+                        trainingData[i]["targetKeywords"]
+                        .strip(" ")
+                        .strip(".")
+                        .split(",")
+                    )
+                    >= 0.5
+                ):
+                    countCorrect += 1
+                else:
+                    countWrong += 1
+                    print(summary)
+                    print(trainingData[i]["spoiler"][0])
+                    # break
 
     """ This Section Not Being Used Right Now:
     for i in range(len(trainingData)):
