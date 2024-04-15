@@ -121,6 +121,9 @@ if __name__ == "__main__":
                 countCorrect += 1
             else:
                 countWrong += 1
+                print(summary)
+                print(trainingData[i]["spoiler"][0])
+                break
 
     """ This Section Not Being Used Right Now:
     for i in range(len(trainingData)):
