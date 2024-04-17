@@ -126,7 +126,7 @@ def summarizeMulti(targetParagraphs):
     for word in doc:
         if word.text.lower() not in stopwords:
             if word.text.lower() not in punctuation:
-                if word.text.lower() in multiIndicators:
+                if word.text.lower() not in multiIndicators:
                     if word.text not in word_frequencies.keys():
                         word_frequencies[word.text] = 1
                     else:
