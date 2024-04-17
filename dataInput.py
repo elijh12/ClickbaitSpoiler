@@ -68,6 +68,18 @@ def summarizePassage(targetParagraphs):
 
 
 def summarizeMulti(targetParagraphs):
+    summary = ""
+    stop = False
+    for line in targetParagraphs:
+        check = line[:3]
+        for number in range(1, 6):
+            numChecking = str(number) + ". "
+            if numChecking == check:
+                stop = True
+                summary += line + "\n"
+    if stop:
+        return summary
+    
     text = ""
     for i in targetParagraphs:
         text += i
@@ -99,16 +111,6 @@ def summarizeMulti(targetParagraphs):
         "eighth",
         "ninth",
         "tenth",
-        "1.",
-        "2.",
-        "3.",
-        "4.",
-        "5.",
-        "6.",
-        "7.",
-        "8.",
-        "9.",
-        "10.",
         "1:",
         "2:",
         "3:",
@@ -170,7 +172,11 @@ def summarizeMulti(targetParagraphs):
 
 # Function used for classifying the current document
 # currently based only on the postText field
-def categorize(thingToCheck):
+def categorize(thingToCheck, targetParagraphs):
+
+    for line in targetParagraphs:
+        if "1. " in line[:3] and "2. " in line[:3]:
+            return "multi"
 
     for token in ["what", "who", "when", "where", "why", "wow", "did you", "have you"]:
         if token in thingToCheck:
@@ -216,7 +222,7 @@ if __name__ == "__main__":
         # print("count: ", count)
         # thingToCheck = trainingData[i]["postText"][0].lower()
 
-        # spoilerType = categorize(thingToCheck)
+        # spoilerType = categorize(thingToCheck, trainingData[i]["targetParagraphs"])
         # if count == 100:
         #     break
         # if trainingData[i]["tags"][0] == "passage":
@@ -277,7 +283,7 @@ if __name__ == "__main__":
 
         if trainingData[i]["tags"][0] == "multi":
             countMulti += 1
-            if countMulti == 20:
+            if countMulti == 101:
                 break
             print("countMulti: ", countMulti)
             text = trainingData[i]["targetParagraphs"]
