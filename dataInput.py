@@ -289,67 +289,67 @@ if __name__ == "__main__":
         # spoilerType = categorize(thingToCheck)
         # if count == 100:
         #     break
-        # if trainingData[i]["tags"][0] == "passage":
-        #     countPassage += 1
-        #     print("countPassage: ", countPassage)
-        #     text = trainingData[i]["targetParagraphs"]
-        #     # for j in text:
-        #     #     j.replace('"', "'")
-        #     # # print(text)
-        #     summary = summarizePassage(text)
-        #     checkKey = 0
-        #     if trainingData[i]["targetKeywords"] == None:
-        #         givenSummary = (
-        #             trainingData[i]["spoiler"][0].strip(".").strip(",").split(" ")
-        #         )
-        #         for j in givenSummary:
-        #             if j not in stopwords:
-        #                 if j in summary:
-        #                     checkKey += 1
-        #         if (
-        #             checkKey
-        #             / len(
-        #                 trainingData[i]["spoiler"][0].strip(".").strip(",").split(" ")
-        #             )
-        #             >= 0.5
-        #         ):
-        #             countPassageCorrect += 1
-        #         else:
-        #             countPassageWrong += 1
-        #             # print(summary)
-        #             # print(trainingData[i]["spoiler"][0])
-        #             # break
-        #     else:
-        #         # print(
-        #         #     trainingData[i]["targetKeywords"].strip(" ").strip(".").split(",")
-        #         # )
-        #         for j in (
-        #             trainingData[i]["targetKeywords"].strip(" ").strip(".").split(",")
-        #         ):
-        #             if j in summary:
-        #                 checkKey += 1
-        #         if (
-        #             checkKey
-        #             / len(
-        #                 trainingData[i]["targetKeywords"]
-        #                 .strip(" ")
-        #                 .strip(".")
-        #                 .split(",")
-        #             )
-        #             >= 0.5
-        #         ):
-        #             countPassageCorrect += 1
-        #         else:
-        #             countPassageWrong += 1
-        #             # print(summary)
-        #             # print(trainingData[i]["spoiler"][0])
-        #             # break
+        if trainingData[i]["tags"][0] == "passage":
+            countPassage += 1
+            print("countPassage: ", countPassage)
+            text = trainingData[i]["targetParagraphs"]
+            # for j in text:
+            #     j.replace('"', "'")
+            # # print(text)
+            summary = summarizePassage(text)
+            checkKey = 0
+            if trainingData[i]["targetKeywords"] == None:
+                givenSummary = (
+                    trainingData[i]["spoiler"][0].strip(".").strip(",").split(" ")
+                )
+                for j in givenSummary:
+                    if j not in stopwords:
+                        if j in summary:
+                            checkKey += 1
+                if (
+                    checkKey
+                    / len(
+                        trainingData[i]["spoiler"][0].strip(".").strip(",").split(" ")
+                    )
+                    >= 0.5
+                ):
+                    countPassageCorrect += 1
+                else:
+                    countPassageWrong += 1
+                    # print(summary)
+                    # print(trainingData[i]["spoiler"][0])
+                    # break
+            else:
+                # print(
+                #     trainingData[i]["targetKeywords"].strip(" ").strip(".").split(",")
+                # )
+                for j in (
+                    trainingData[i]["targetKeywords"].strip(" ").strip(".").split(",")
+                ):
+                    if j in summary:
+                        checkKey += 1
+                if (
+                    checkKey
+                    / len(
+                        trainingData[i]["targetKeywords"]
+                        .strip(" ")
+                        .strip(".")
+                        .split(",")
+                    )
+                    >= 0.5
+                ):
+                    countPassageCorrect += 1
+                else:
+                    countPassageWrong += 1
+                    # print(summary)
+                    # print(trainingData[i]["spoiler"][0])
+                    # break
 
         if trainingData[i]["tags"][0] == "multi":
             countMulti += 1
-            if countMulti > 100:
-                countMulti -= 1
-                break
+            # if countMulti > 100:
+            #     countMulti -= 1
+            #     break
             print("countMulti: ", countMulti)
             text = trainingData[i]["targetParagraphs"]
             # for j in text:
@@ -404,69 +404,69 @@ if __name__ == "__main__":
                     # print(trainingData[i]["spoiler"][0])
                     # break
 
-        # if trainingData[i]["tags"][0] == "phrase":
-        #     countPhrase += 1
-        #     if countPhrase > 100:
-        #     countPhrase -= 1
-        #         break
-        #     print("countPhrase: ", countPhrase)
-        #     text = trainingData[i]["targetParagraphs"]
-        #     # for j in text:
-        #     #     j.replace('"', "'")
-        #     # # print(text)
-        #     for word in trainingData[i]["postText"]:
-        #         if word not in stopwords:
-        #             phraseIndicators.append(word)
-        #     checkKey = 0
-        #     if trainingData[i]["targetKeywords"] == None:
-        #         summary = summarizePhrase(text, phraseIndicators)
-        #         givenSummary = trainingData[i]["spoiler"][0].strip(",").split(" ")
-        #         for j in givenSummary:
-        #             if j not in stopwords:
-        #                 if j in summary:
-        #                     checkKey += 1
-        #         if (
-        #             checkKey
-        #             / len(
-        #                 trainingData[i]["spoiler"][0].strip(".").strip(",").split(" ")
-        #             )
-        #             >= 0.5
-        #         ):
-        #             countPhraseCorrect += 1
-        #         else:
-        #             countPhraseWrong += 1
-        #             # print(summary)
-        #             # print(trainingData[i]["spoiler"][0])
-        #             # break
-        #     else:
-        #         # print(
-        #         #     trainingData[i]["targetKeywords"].strip(" ").strip(".").split(",")
-        #         # )
-        #         for word in trainingData[i]["targetKeywords"].split(","):
-        #             if word not in stopwords:
-        #                 phraseIndicators.append(word)
-        #         summary = summarizePhrase(text, phraseIndicators)
-        #         for j in (
-        #             trainingData[i]["targetKeywords"].strip(" ").strip(".").split(",")
-        #         ):
-        #             if j in summary:
-        #                 checkKey += 1
-        #         if (
-        #             checkKey
-        #             / len(
-        #                 trainingData[i]["targetKeywords"]
-        #                 .strip(" ")
-        #                 .strip(".")
-        #                 .split(",")
-        #             )
-        #             >= 0.5
-        #         ):
-        #             countPhraseCorrect += 1
-        #         else:
-        #             countPhraseWrong += 1
-        #             # print(summary)
-        #             # print(trainingData[i]["spoiler"][0])
-        #             # break
+        if trainingData[i]["tags"][0] == "phrase":
+            countPhrase += 1
+            # if countPhrase > 100:
+            #     countPhrase -= 1
+            #     break
+            print("countPhrase: ", countPhrase)
+            text = trainingData[i]["targetParagraphs"]
+            # for j in text:
+            #     j.replace('"', "'")
+            # # print(text)
+            for word in trainingData[i]["postText"]:
+                if word not in stopwords:
+                    phraseIndicators.append(word)
+            checkKey = 0
+            if trainingData[i]["targetKeywords"] == None:
+                summary = summarizePhrase(text, phraseIndicators)
+                givenSummary = trainingData[i]["spoiler"][0].strip(",").split(" ")
+                for j in givenSummary:
+                    if j not in stopwords:
+                        if j in summary:
+                            checkKey += 1
+                if (
+                    checkKey
+                    / len(
+                        trainingData[i]["spoiler"][0].strip(".").strip(",").split(" ")
+                    )
+                    >= 0.5
+                ):
+                    countPhraseCorrect += 1
+                else:
+                    countPhraseWrong += 1
+                    # print(summary)
+                    # print(trainingData[i]["spoiler"][0])
+                    # break
+            else:
+                # print(
+                #     trainingData[i]["targetKeywords"].strip(" ").strip(".").split(",")
+                # )
+                for word in trainingData[i]["targetKeywords"].split(","):
+                    if word not in stopwords:
+                        phraseIndicators.append(word)
+                summary = summarizePhrase(text, phraseIndicators)
+                for j in (
+                    trainingData[i]["targetKeywords"].strip(" ").strip(".").split(",")
+                ):
+                    if j in summary:
+                        checkKey += 1
+                if (
+                    checkKey
+                    / len(
+                        trainingData[i]["targetKeywords"]
+                        .strip(" ")
+                        .strip(".")
+                        .split(",")
+                    )
+                    >= 0.5
+                ):
+                    countPhraseCorrect += 1
+                else:
+                    countPhraseWrong += 1
+                    # print(summary)
+                    # print(trainingData[i]["spoiler"][0])
+                    # break
 
     """ This Section Not Being Used Right Now:
     for i in range(len(trainingData)):
@@ -493,17 +493,17 @@ if __name__ == "__main__":
     """
 
     # Print results
-    # print(countPassageCorrect)
-    # print(countPassageWrong)
-    # print(countPassageCorrect / countPassage)
+    print('countPassageCorrect: ', countPassageCorrect)
+    print('countPassageWrong: ', countPassageWrong)
+    print('accuracy: ', countPassageCorrect / countPassage)
 
-    print(countMultiCorrect)
-    print(countMultiWrong)
-    print(countMultiCorrect / countMulti)
+    print('countMultiCorrect: ', countMultiCorrect)
+    print('countMultiWrong: ', countMultiWrong)
+    print('accuracy: ', countMultiCorrect / countMulti)
 
-    print(countPhraseCorrect)
-    print(countPhraseWrong)
-    print(countPhraseCorrect / countPhrase)
+    print('countPhraseCorrect: ', countPhraseCorrect)
+    print('countPhraseWrong: ', countPhraseWrong)
+    print('accuracy: ', countPhraseCorrect / countPhrase)
 
     # print(count)
     # print(countMultiActual)
